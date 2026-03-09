@@ -1,0 +1,49 @@
+# @package _global_
+
+defaults:
+  - model: simple_cnn
+  - data: cifar10
+  - explainer: gradcam
+  - _self_
+
+# Experiment settings
+experiment_name: "xai_evaluation"
+seed: 42
+device: "auto"  # auto, cuda, mps, cpu
+
+# Training settings
+training:
+  epochs: 10
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  optimizer: "adam"
+  scheduler: "cosine"
+
+# Evaluation settings
+evaluation:
+  max_samples: 100
+  save_results: true
+  create_visualizations: true
+  generate_report: true
+
+# Explanation settings
+explanation:
+  methods: ["gradcam", "integrated_gradients", "lime", "shap"]
+  target_layer: null  # null for auto-detection
+  num_steps: 50  # for integrated gradients
+  num_samples: 1000  # for LIME
+
+# Visualization settings
+visualization:
+  figsize: [12, 8]
+  save_dir: "assets"
+  alpha: 0.4  # blending factor for heatmaps
+  dpi: 150
+
+# Logging settings
+logging:
+  level: "INFO"
+  log_dir: "logs"
+  use_wandb: false
+  wandb_project: "interpretable-cv-xai"
